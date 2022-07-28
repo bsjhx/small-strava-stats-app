@@ -4,7 +4,7 @@
 </script>
 
 <svelte:head>
-	<title>Lol</title>
+	<title>Strava stats</title>
 	<meta name="description" content="Strava authorized" />
 </svelte:head>
 
