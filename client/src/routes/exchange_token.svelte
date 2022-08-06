@@ -1,27 +1,21 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+	import { browser } from '$app/env';
+
 	const code = $page.url.searchParams.get('code');
-</script>
-
-<svelte:head>
-	<title>Strava stats</title>
-	<meta name="description" content="Strava authorized" />
-</svelte:head>
-
-<div class="content">
-	{#if code}
-		<h1>You did it! Strava is authorized. Now just let us sync all your activities:</h1>
-		Code: {code}
-		<button>Start sync</button>
-	{:else}
-		<h1>App is not authorized... Sorry about that</h1>
-	{/if}
-</div>
-
-<style>
-	.content {
-		width: 100%;
-		max-width: var(--column-width);
-		margin: var(--column-margin-top) auto 0 auto;
+	const scopes = $page.url.searchParams.get('scope');
+	console.log('scopes', scopes);
+	
+	if (browser) {
+		if (code && scopes?.includes("activity:read_all")) {
+			console.log('jest kod -> zapisz do bazy danych'); // todo add call to api to get refresh token -> store in DB
+			// zapisac token w ciasteczku
+			// przy wejsciu na strone zobaczyc se czy user jest zalogowany/zarejestrowany
+			goto('/');
+		} else {
+			console.log('no panie nie dałeś uprawnień -> to nie wiem co xD');
+			goto('/todos'); // goto jakas specjalna strona z przyciskiem do ponownej autoryzacji
+		}
 	}
-</style>
+</script>
