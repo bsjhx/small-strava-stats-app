@@ -1,7 +1,6 @@
-`use strict`;
+import express from 'express';
+import { routerV1 } from './src/routes';
 
-const express = require("express");
-const routerV1 = require("./src/routes");
 const port = 3000;
 
 var app = express();
